@@ -1,0 +1,35 @@
+{% extends 'customers/base.html' %}
+{% load custom_filters %}
+{% block title %}تاریخچه سفارشات {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">تاریخچه سفارشات</h2>
+    {% if orders %}
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">شماره سفارش</th>
+                <th scope="col">مبلغ کل</th>
+                <th scope="col">تاریخ سفارش</th>
+                <th scope="col">عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.total_amount|pnumber_style }} تومان</td>
+                <td>{{ order.created_at|date:"Y-m-d H:i:s" }}</td>
+                <td><a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">جزئیات</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        سفارشی ثبت نکرده اید.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

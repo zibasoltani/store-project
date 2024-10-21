@@ -1,0 +1,41 @@
+{% extends 'vendors/base.html' %}
+{% load custom_filters %}
+
+{% block title %}نظرات محصولات شما {% endblock %}
+
+{% block content %}
+    <h1 class="text-center my-4">نظرات و امتیازات محصولات شما</h1>
+    <ul class="list-unstyled">
+        {% for product in products %}
+            {% for review in product.reviews.all %}
+                <li class="review-item mb-4 p-3 border rounded shadow-sm">
+                    <h5 class="text-muted">{{ product.name }}</h5>
+                    <p class="mb-1">
+                        {% for star in "12345" %}
+                            {% if star|add:0 <= review.rating %}
+                                <span class="text-warning">&#9733;</span>  <!-- ستاره پر شده -->
+                            {% else %}
+                                <span class="text-secondary">&#9734;</span> <!-- ستاره خالی -->
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                    <p class="mb-1">نظر: {{ review.comment }}</p>
+                    <p class="text-muted small">تاریخ: {{ review.created_at|date:"Y-m-d" }}</p>
+                </li>
+            {% empty %}
+                <p>هیچ نظری برای این محصول وجود ندارد.</p>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+    <style>
+        .review-item {
+            transition: all 0.3s ease;
+        }
+
+        .review-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+{% endblock %}

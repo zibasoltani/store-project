@@ -1,0 +1,56 @@
+{% extends 'vendors/base.html' %}
+{% load custom_filters %}
+
+{% block title %}داشبورد محصولات{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">ویرایش پروفایل</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.first_name|add_class:"form-control" }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            {{ form.last_name|add_class:"form-control" }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+            {{ form.gender|add_class:"form-control" }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.shop_name.id_for_label }}">{{ form.shop_name.label }}</label>
+            {{ form.shop_name|add_class:"form-control" }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.shop_address.id_for_label }}">{{ form.shop_address.label }}</label>
+            {{ form.shop_address|add_class:"form-control" }}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email|add_class:"form-control" }}
+        </div>
+
+        <div class="form-group">
+            <label for="phone_number">شماره تلفن:</label>
+            <input type="text" id="phone_number" name="phone_number" value="{{ request.user.phone_number }}" disabled class="form-control">
+            <a href="{% url 'edit_phone' %}">تغییر شماره همراه</a>
+        </div>
+
+        <div class="form-group">
+            <p>تغییر پسورد:</p>
+            <a href="{% url 'change_password' %}">تغییر پسورد</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+    </form>
+</div>
+{% endblock %}

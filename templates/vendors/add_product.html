@@ -1,0 +1,31 @@
+<!-- vendors/templates/vendors/add_product.html -->
+{% extends 'vendors/base.html' %}
+{% load custom_filters %}
+{% block title %}داشبورد محصولات{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">افزودن محصول جدید</h2>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.name.label_tag }}
+                        {{ form.name|add_class:"form-control" }}
+                        {{ form.description.label_tag }}
+                        {{ form.description|add_class:"form-control" }}
+                        {{ form.price.label_tag }}
+                        {{ form.price|add_class:"form-control" }}
+                        {{ form.category.label_tag }}
+                        {{ form.category|add_class:"form-control" }}
+                        {{ form.image.label_tag }}
+                        {{ form.image|add_class:"form-control-file" }}
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">افزودن محصول</button>
+                </form>
+                <a href="{% url 'product_list' %}" class="btn btn-secondary btn-block mt-3">بازگشت به لیست محصولات</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

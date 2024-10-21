@@ -1,0 +1,29 @@
+<!-- accounts/templates/accounts/register_customer.html -->
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>ثبت نام مشتری</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">ثبت نام مشتری</h2>
+        <form method="POST" class="border p-4 rounded shadow">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ user_form|crispy }}
+            </div>
+            <button type="submit" class="btn btn-primary w-100">ثبت نام</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url 'user_login' %}" class="text-decoration-none">ورود به حساب کاربری</a>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

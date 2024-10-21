@@ -1,0 +1,6 @@
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="phone_number" placeholder="شماره موبایل" required>
+    <input type="text" name="otp" placeholder="کد OTP" required>
+    <button type="submit">تأیید کد OTP</button>
+</form>

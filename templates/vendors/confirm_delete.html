@@ -1,0 +1,15 @@
+
+{% extends 'vendors/base.html' %}
+
+{% block title %} حذف محصول {% endblock %}
+
+{% block content %}
+    <h1>از حذف مطمئنید؟ {{ product.name }}?</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="تایید">
+    </form>
+
+    <a href="{% url 'product_list' %}">لغو</a>
+{% endblock %}

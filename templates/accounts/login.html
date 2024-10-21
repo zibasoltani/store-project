@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود به حساب کاربری</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% if error_message %}
+    <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card" style="width: 400px;">
+            <div class="card-body">
+                <h5 class="card-title text-center">ورود به حساب کاربری</h5>
+                <ul class="nav nav-tabs justify-content-center mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="emailTab">ورود با ایمیل</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="phoneTab">ورود با شماره موبایل</a>
+                    </li>
+                </ul>
+
+                <div id="emailLogin" class="mt-3">
+                    <form method="POST" action="{% url 'user_login' %}?next={{ request.GET.next }}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="identifier" class="form-control" placeholder="ایمیل" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="رمزعبور" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">ورود</button>
+                    </form>
+                </div>
+
+                <div id="otpLogin" class="mt-3" style="display: none;">
+                    <form id="otpLoginForm" method="POST" action="{% url 'otp_login' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" name="identifier" class="form-control" placeholder="شماره موبایل" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">دریافت کد OTP</button>
+                    </form>
+                </div>
+                
+                <div id="otpVerification" class="mt-3" style="display: none;">
+                    <form id="otpFormElement">
+                        {% csrf_token %}
+                        <input type="text" id="otpPhoneNumber" name="phone_number" placeholder="شماره موبایل" required class="form-control mb-2">
+                        <input type="text" name="otp" placeholder="کد OTP" required class="form-control mb-2"> 
+                        <button type="submit" class="btn btn-primary btn-block">تأیید کد OTP</button>
+                    </form>
+                    <div id="otpResult" class="mt-3" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#otpLoginForm').on('submit', function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: formData,
+                    success: function(response) {
+                        // مقدار شماره موبایل را در input مربوطه قرار بده
+                        var phoneNumber = $('input[name="identifier"]').val();
+                        $('#otpPhoneNumber').val(phoneNumber);
+                        $('#otpVerification').show(); // نمایش فرم تایید OTP
+                    },
+                    error: function(xhr) {
+                        alert(xhr.responseJSON.error);
+                    }
+                });
+            });
+    
+            $('#otpFormElement').on('submit', function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+    
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'verify_otp' %}",
+                    data: formData,
+                    success: function(response) {
+                        $('#otpResult').text(response.message).show();
+                        setTimeout(function() {
+                            window.location.href = "{% url 'home' %}";
+                        }, 2000); 
+                    },
+                    error: function(xhr) {
+                        $('#otpResult').text(xhr.responseJSON.error).show();
+                    }
+                });
+            });
+    
+            $('#phoneTab').click(function(e) {
+                e.preventDefault();
+                $('#emailLogin').hide();
+                $('#otpLogin').show(); 
+                $('#phoneTab').addClass('active');
+                $('#emailTab').removeClass('active');
+            });
+    
+            $('#emailTab').click(function(e) {
+                e.preventDefault();
+                $('#otpLogin').hide();
+                $('#emailLogin').show();
+                $('#emailTab').addClass('active');
+                $('#phoneTab').removeClass('active');
+            });
+        });
+    </script>
+</body>
+</html>

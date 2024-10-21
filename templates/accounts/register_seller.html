@@ -1,0 +1,54 @@
+<!-- accounts/templates/accounts/register_seller.html -->
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت نام فروشنده</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa; /* رنگ پس‌زمینه ملایم */
+        }
+        .form-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="form-card">
+            <h2 class="text-center">ثبت نام فروشنده</h2>
+            <form method="POST" class="mt-4">
+                {% csrf_token %}
+                <div class="form-group">
+                    <h4>اطلاعات کاربری</h4>
+                    {{ user_form|crispy }}  
+                </div>
+                <div class="form-group">
+                    <h4>اطلاعات فروشگاه</h4>
+                    {{ profile_form|crispy }} 
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">ثبت نام</button>
+            </form>
+            <div class="mt-3 text-center">
+                <a href="{% url 'user_login' %}">ورود به حساب کاربری</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

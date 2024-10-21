@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <form method="POST">
+        {% csrf_token %}
+        
+        <h2 class="mb-4">تسویه حساب</h2>
+        <div class="alert alert-info" role="alert">
+            مجموع: {{ total }} تومان
+        </div>
+        
+        <h3 class="mt-4">آدرس‌ها:</h3>
+        <div class="form-group">
+            <select name="address" class="form-control mb-3">
+                {% for address in addresses %}
+                    <option value="{{ address.id }}">{{ address.full_address }}</option>
+                {% endfor %}
+            </select>
+            <a href="{% url 'address_create' %}" class="btn btn-link">افزودن آدرس</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">تأیید نهایی سفارش</button>
+    </form>
+</div>
+{% endblock %}

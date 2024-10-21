@@ -1,0 +1,43 @@
+{% extends 'customers/base.html' %}
+{% load custom_filters %}
+
+{% block title %}ویرایش پروفایل {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">ویرایش پروفایل</h2>
+    <form method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="first_name" class="form-label">نام:</label>
+            {{ profile_edit_form.first_name |add_class:"form-control" }} 
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">نام خانوادگی:</label>
+            {{ profile_edit_form.last_name|add_class:"form-control" }}
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">جنسیت:</label>
+            {{ profile_edit_form.gender|add_class:"form-control" }} 
+        </div>
+        <div class="mb-3">
+            <label class="form-label">شماره تلفن:</label>
+            <input type="text" class="form-control" value="{{ phone_number }}" disabled />
+            <a href="{% url 'edit_phone' %}" class="link-primary">تغییر شماره تلفن</a>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">ایمیل:</label>
+            {{ user_edit_form.email|add_class:"form-control" }} 
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">نام کاربری:</label>
+            {{ user_edit_form.username|add_class:"form-control" }} 
+        </div>
+        <div class="mb-3">
+            <label class="form-label">رمز عبور:</label>
+            <a href="{% url 'change_password' %}" class="link-primary">تغییر رمز عبور</a>
+        </div>
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </form>
+</div>
+{% endblock %}

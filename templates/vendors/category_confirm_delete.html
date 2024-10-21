@@ -1,0 +1,7 @@
+<h1>Delete Category</h1>
+<p>Are you sure you want to delete "{{ category.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+</form>
+<a href="{% url 'category_list' %}">Cancel</a>

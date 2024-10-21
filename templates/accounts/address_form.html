@@ -1,0 +1,54 @@
+{% extends 'customers/base.html' %}
+{% load custom_filters %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">{% if form.instance.pk %}ویرایش آدرس{% else %}افزودن آدرس{% endif %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_zip_code" class="form-label">{{ form.state.label }}</label>
+            {{ form.state|add_class:"form-control"  }}
+            {% if form.state.errors %}
+                <div class="text-danger">{{ form.state.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_city" class="form-label">{{ form.city.label }}</label>
+            {{ form.city|add_class:"form-control"  }}
+            {% if form.city.errors %}
+                <div class="text-danger">{{ form.city.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_address" class="form-label">{{ form.line_1.label }}</label>
+            {{ form.line_1 |add_class:"form-control" }}
+            {% if form.address.errors %}
+                <div class="text-danger">{{ form.line_1.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_zip_code" class="form-label">{{ form.postal_code.label }}</label>
+            {{ form.postal_code|add_class:"form-control"  }}
+            {% if form.postal_code.errors %}
+                <div class="text-danger">{{ form.postal_code.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_address" class="form-label">{{ form.line_2.label }}</label>
+            {{ form.line_2|add_class:"form-control"  }}
+            {% if form.line_2.errors %}
+                <div class="text-danger">{{ form.address.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="id_zip_code" class="form-label">{{ form.country.label }}</label>
+            {{ form.country|add_class:"form-control"  }}
+            {% if form.country.errors %}
+                <div class="text-danger">{{ form.country.errors }}</div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+        <a href="{% url 'address_list' %}" class="btn btn-secondary ms-2">انصراف</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+# IDE files
+.idea/
+.vscode/
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Compiled files
+*.class
+*.o
+*.exe
+
+# Local configuration
+.env
+*.local
+
+# Log files
+*.log
+
+# System files
+Thumbs.db
+.DS_Store

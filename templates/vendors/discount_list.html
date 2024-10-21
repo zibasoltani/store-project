@@ -1,0 +1,36 @@
+{% extends 'vendors/base.html' %}
+
+{% block title %} تخفیف ها {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1>تخفیف ها</h1>
+    <a href="{% url 'discount_create' %}" class="btn btn-primary mb-3">افزودن تخفیف</a>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>محصول</th>
+                <th>نوع تخفیف</th>
+                <th>مقدار تخفیف</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for discount in discounts %}
+            <tr>
+                <td>{{ discount.product.name }}</td>
+                <td>{{ discount.get_discount_type_display }}</td> 
+                <td>{{ discount.value }}</td>
+                <td>
+                    <a href="{% url 'discount_update' discount.pk %}" class="btn btn-warning btn-sm">ویرایش</a>
+                    <a href="{% url 'discount_delete' discount.pk %}" class="btn btn-danger btn-sm" 
+                       onclick="return confirm('آیا از حذف این تخفیف مطمئن هستید؟');">حذف</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

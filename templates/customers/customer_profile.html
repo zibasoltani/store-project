@@ -1,0 +1,19 @@
+
+{% extends 'customers/base.html' %}
+
+{% block title %}داشبورد {% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>پنل کاربری شما</h2>
+        <p><strong>نام کاربری:</strong> {{ profile.user.username }}</p>
+        <p><strong>شماره تلفن:</strong> {{ profile.phone_number }}</p>
+        <p><strong>آدرس:</strong> {{ profile.address }}</p>
+        
+        
+        <a href="{% url 'edit_profile' %}" class="btn btn-warning">ویرایش پروفایل</a>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
+{% endblock %}

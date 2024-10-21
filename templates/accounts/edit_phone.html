@@ -1,0 +1,86 @@
+{% extends base_template %}
+
+{% block title %}ویرایش شماره تلفن{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">ویرایش شماره تلفن</h2>
+    <form id="phone-edit-form" method="post" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="new_phone_number" class="form-label">شماره تلفن جدید:</label>
+            <input type="text" name="new_phone_number" id="new_phone_number" class="form-control" required>
+            <div class="invalid-feedback">
+                لطفاً شماره تلفن جدید خود را وارد کنید.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">ارسال کد تایید</button>
+    </form>
+
+    <form id="otp-confirm-form" method="post" class="needs-validation" style="display:none;" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="otp" class="form-label">کد تایید:</label>
+            <input type="text" name="otp" id="otp" class="form-control" required>
+            <div class="invalid-feedback">
+                لطفاً کد تایید را وارد کنید.
+            </div>
+            <input type="hidden" name="new_phone_number" id="new_phone_number_hidden">
+        </div>
+        <button type="submit" class="btn btn-success">تایید و تغییر شماره</button>
+    </form>
+</div>
+{% endblock %}
+
+
+
+
+
+{% block js %}
+<script>
+    const phoneEditForm = document.getElementById('phone-edit-form');
+    const otpConfirmForm = document.getElementById('otp-confirm-form');
+    const newPhoneNumberInput = document.getElementById('new_phone_number');
+    const newPhoneNumberHiddenInput = document.getElementById('new_phone_number_hidden');
+
+    phoneEditForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(phoneEditForm);
+        const response = await fetch(phoneEditForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+        });
+        const data = await response.json();
+        if (response.ok) {
+            newPhoneNumberHiddenInput.value = newPhoneNumberInput.value; // ذخیره شماره تلفن جدید
+            phoneEditForm.style.display = 'none';
+            otpConfirmForm.style.display = 'block';
+            alert(data.message);
+        } else {
+            alert(data.error);
+        }
+    };
+
+    otpConfirmForm.onsubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(otpConfirmForm);
+        const response = await fetch(otpConfirmForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+        });
+        const data = await response.json();
+        if (response.ok) {
+            alert(data.message);
+            window.location = '/customers/dashboard/';  // مسیر دلخواه بعد از موفقیت
+        } else {
+            alert(data.error);
+        }
+    };
+</script>
+{% endblock %}

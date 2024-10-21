@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}داشبورد {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .sidebar {
+            border-left: 1px solid #ddd;
+            padding: 15px; 
+            height: 100vh; 
+        }
+        
+        .content {
+            padding: 15px; 
+        }
+
+        .row {
+            height: 100vh; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>{% block header %}داشبورد {% endblock %}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="phone_number" placeholder="شماره موبایل" required>
+            <button type="submit">دریافت کد OTP</button>
+        </form>
+        {% if messages %}
+    <ul>
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</body>
+</html>

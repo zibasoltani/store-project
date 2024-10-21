@@ -1,0 +1,115 @@
+<!-- main/templates/main/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}صفحه اصلی{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* CSS برای حداقل ارتفاع */
+        main {
+            min-height: 70vh; /* حداقل ارتفاع به اندازه 70% ارتفاع صفحه */
+        }
+        /* CSS برای تغییر رنگ فوتر */
+        footer {
+            background-color: #e9ecef; /* رنگ جدید فوتر */
+        }
+    </style>
+</head>
+<body class="text-right">
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"> آلدو گالری</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+                        </li>
+                        {% if user_type == 1 %}  <!-- اگر کاربر مشتری است -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'customer_dashboard' %}">داشبورد مشتری</a>
+                            </li>
+                        {% elif user_type == 2 %}  <!-- اگر کاربر فروشنده است -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'seller_dashboard' %}">داشبورد فروشنده</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user_login' %}" >ورود</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register_customer' %}">ثبت‌نام</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="container">
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="text-center text-lg-start mt-5">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase">درباره ما</h5>
+                <p>ما یک فروشگاه آنلاین هستیم که انواع محصولات را با بهترین قیمت‌ها و کیفیت بالا ارائه می‌دهیم. هدف ما رضایت مشتریان عزیز است.</p>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase">لینک‌های مفید</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-dark">درباره ما</a></li>
+                    <li><a href="#" class="text-dark">تماس با ما</a></li>
+                    <li><a href="#" class="text-dark">سوالات متداول</a></li>
+                    <li><a href="#" class="text-dark">سیاست حریم خصوصی</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase">دنبال کنید</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-dark">اینستاگرام</a></li>
+                    <li><a href="#" class="text-dark">فیسبوک</a></li>
+                    <li><a href="#" class="text-dark">توییتر</a></li>
+                    <li><a href="#" class="text-dark">تلگرام</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="text-uppercase">تماس با ما</h5>
+                <p><i class="fas fa-envelope"></i> ایمیل: support@example.com</p>
+                <p><i class="fas fa-phone"></i> تلفن: ۰۲۱-XXXX-XXXX</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center p-3">
+        <p class="mb-0">کلیهٔ حقوق محفوظ است © ۲۰۲۳  آلدوگالری</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/jquery-3.5.1.slim.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.0/dist/umd/popper.min.js"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

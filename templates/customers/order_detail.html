@@ -1,0 +1,33 @@
+
+{% extends 'customers/base.html' %}
+{% load custom_filters %}
+{% block title %}داشبورد {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center bg-success text-white">
+            <h1>با تشکر از سفارش شما!</h1>
+        </div>
+        <div class="card-body text-right">
+            <p>سفارش شما با موفقیت ثبت شد.</p>
+            <h2>جزئیات سفارش</h2>
+            <p><strong>شناسه سفارش:</strong> {{ order.id }}</p>
+            <p><strong>اقلام سفارش:</strong></p>
+            <ul class="list-group mb-3">
+                {% for item in order.items.all %}
+                    <li class="list-group-item">
+                        {{ item.product.name }} - تعداد: {{ item.quantity }} - قیمت: {{ item.product.price|pnumber_style }} {{ item.product.get_currency_display }}
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">هیچ چیزی در این سفارش وجود ندارد.</li>
+                {% endfor %}
+            </ul>
+            <p><strong>مجموع مبلغ:</strong> {{ total_sum }}</p>
+            <div class="text-center">
+                <a href="{% url 'home' %}" class="btn btn-primary">بازگشت به سایت</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

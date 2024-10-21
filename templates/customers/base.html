@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}داشبورد {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .sidebar {
+            border-left: 1px solid #ddd;
+            padding: 15px; 
+            height: 100vh; 
+        }
+        
+        .content {
+            padding: 15px; 
+        }
+
+        .row {
+            height: 100vh; 
+        }
+    </style>
+</head>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"> آلدو گالری</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">خروج</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<body>
+    <div class="container mt-5">
+        <h2>{% block header %}داشبورد {% endblock %}</h2>
+        <div class="row">
+            <!-- سایدبار -->
+            <div class="col-md-3 sidebar">
+                <h5>مشخصات کاربری</h5>
+                <ul>
+                    <li><a href="{% url 'edit_profile' %}">ویرایش اطلاعات حساب کاربری</a></li>
+                    <li><a href="{% url 'address_list' %}">آدرس ها</a>
+                </ul>
+                <h5>سفارشات</h5>
+                <ul>
+                    <li><a href="{% url 'order_history' %}">تاریخچه سفارشات </a></li>
+                    <li><a href="{% url 'user_reviews' %}">دیدگاه ها</a></li>
+                </ul>
+            </div>
+            <!-- پایان سایدبار -->
+
+            <div class="col-md-9 content">
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

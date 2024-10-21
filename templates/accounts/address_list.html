@@ -1,0 +1,33 @@
+<!-- address/address_list.html -->
+{% extends 'customers/base.html' %}
+
+{% block content %}
+<h2>آدرس ها</h2>
+<a href="{% url 'address_create' %}" class="btn btn-primary"> افزودن آدرس </a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>خیابان</th>
+            <th>شهر</th>
+            <th>کشور</th>
+            <th>اقدامات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for address in addresses %}
+        <tr>
+            <td>{{ address.line_1 }}</td>
+            <td>{{ address.city }}</td>
+            <td>{{ address.country }}</td>
+            <td>
+                <a href="{% url 'address_update' address.pk %}" class="btn btn-warning">ویرایش</a>
+                <form action="{% url 'address_delete' address.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">حذف</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

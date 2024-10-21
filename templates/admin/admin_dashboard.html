@@ -1,0 +1,25 @@
+<!-- admin/templates/admin/admin_dashboard.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پنل مدیریت</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body class="text-right">
+    <div class="container mt-5">
+        <h2>پنل مدیریت</h2>
+        <h3>مدیریت فروشندگان:</h3>
+        <a href="{% url 'vendor_list' %}" class="btn btn-primary">لیست فروشندگان</a>
+        
+        <h3>مدیریت سفارشات:</h3>
+        <a href="{% url 'order_list' %}" class="btn btn-primary">لیست سفارشات</a>
+        
+        <h3>گزارشات:</h3>
+        <p>می‌توانید گزارش‌هایی از فروشگاه‌ها و محصولات پر فروش بیابید.</p>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+
+{% extends 'customers/base.html' %}
+
+{% block title %}داشبورد {% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <label for="phone_number">Phone Number:</label>
+    <input type="text" name="phone_number" required>
+    
+    <label for="address">Address:</label>
+    <textarea name="address" required></textarea>
+    
+    <button type="submit">Create Profile</button>
+</form>
+{% endblock %}

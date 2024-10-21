@@ -1,0 +1,19 @@
+
+
+{% extends 'vendors/base.html' %}
+
+{% block title %}  ویرایش محصول: {{ product.name }}  {% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>ویرایش محصول: {{ product.name }}</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
+        </form>
+        
+        <a href="{% url 'product_list' %}" class="btn btn-secondary mt-3">بازگشت به لیست محصولات</a>
+    </div>
+
+{% endblock %}

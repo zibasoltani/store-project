@@ -1,0 +1,27 @@
+{% extends 'vendors/base.html' %}
+{% load custom_filters %}
+
+{% block title %}داشبورد محصولات{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>پروفایل فروشنده</h4>
+                </div>
+                <div class="card-body">
+                    <h5>نام: {{ seller_profile.first_name }} {{ seller_profile.last_name }}</h5>
+                    <p>جنسیت: {% if seller_profile.gender == 1 %} آقا {% elif seller_profile.gender == 2 %} خانم {% else %} نامشخص {% endif %} </p>
+                    <p>نام فروشگاه: {{ seller_profile.shop_name }}</p>
+                    <p>آدرس فروشگاه: {{ seller_profile.shop_address }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!-- این بخش حذف شد: کارت مدیریت محصولات -->
+        </div>
+    </div>
+</div>
+{% endblock %}

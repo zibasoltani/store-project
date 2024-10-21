@@ -1,0 +1,33 @@
+{% extends 'vendors/base.html' %}
+{% load custom_filters %}
+
+{% block title %}داشبورد محصولات{% endblock %}
+
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>لیست محصولات شما</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">نام محصول</th>
+                    <th scope="col">قیمت</th>
+                    <th scope="col">عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price|pnumber_style }} تومان</td>
+                    <td>
+                        <a href="{% url 'edit_product' product.id %}" class="btn btn-warning">ویرایش</a>
+                        <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">حذف</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_product' %}" class="btn btn-primary mt-3">افزودن محصول جدید</a>
+    </div>
+{% endblock %}

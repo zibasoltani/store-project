@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+{% load custom_filters %}
+{% block title %}صفحه دسته بندی{% endblock %}
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">به فروشگاه آلدو گالری خوش آمدید</h1>
+    <p class="lead">بهترین محصولات را با بهترین قیمت‌ها پیدا کنید</p>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <h5>دسته بندی</h5>
+        <ul class="list-group">
+            
+                <li class="list-group-item">
+        {{ category.name }}
+                </li>
+        </ul>
+    </div>
+    
+    <div class="col-md-9">
+        <form method="GET" action="{% url 'home' %}" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="search" placeholder="جستجو..." class="form-control" style="flex: 0 0 70%;" />
+                <div class="input-group-append d-flex" style="flex: 0 0 30%;">
+                    <select name="sort" class="form-select" style="margin-right: 5px;">
+                        <option value="best_selling">پرفروش‌ترین</option>
+                        <option value="highest_rated">بالاترین امتیاز</option>
+                        <option value="most_expensive">گران‌ترین</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary" style="margin-right: 5px;">جستجو</button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="card-img-top">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-title">{{ product.category }}</p>
+                        {% if dis_val > 0 %}
+                            <p class="card-text"><s>{{ product.price|pnumber_style }} تومان</s> <strong>{{ product.final_price|pnumber_style }} تومان</strong></p>
+                        {% else %}
+                            <p class="card-text">{{ product.price|pnumber_style }} تومان</p>
+                        {% endif %}
+                        <p class="card-text">امتیاز: {{ product.average_rating|default:"ندارد" }}</p>
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-info">جزئیات محصول</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

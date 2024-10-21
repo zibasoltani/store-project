@@ -1,0 +1,16 @@
+
+{% extends 'vendors/base.html' %}
+
+{% block title %}  حذف تخفیف  {% endblock %}
+
+{% block content %}
+
+
+<h1>حذف تخفیف</h1>
+<p>مطمئنی میخوای این تخفیف حذف بشه؟ "{{ discount.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">تایید</button>
+</form>
+<a href="{% url 'discount_list' %}">لغو</a>
+{% endblock %}

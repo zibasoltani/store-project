@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center">سبد خرید شما</h2>
+
+        <div id="cart-content">
+            <p>در حال بارگذاری اطلاعات سبد خرید...</p>
+        </div>
+
+        <!-- تبدیل دکمه ثبت نهایی سفارش به لینک -->
+        <a href="/cart/checkout/" class="btn btn-success mt-4">ثبت نهایی سفارش</a>
+
+    </div>
+
+    <script>
+        // تعریف کد AJAX حذف و بروزرسانی و بارگذاری سبد خرید بدون تغییر
+        function fetchCart() {
+            fetch('/cart/cart/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    renderCart(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function renderCart(cart) {
+            const cartContent = document.getElementById('cart-content');
+            cartContent.innerHTML = '';
+
+            if (cart.items.length === 0) {
+                cartContent.innerHTML = '<p>سبد خرید شما خالی است.</p>';
+                return;
+            }
+
+            let tableHTML = `
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>محصول</th>
+                        <th>قیمت</th>
+                        <th>تعداد</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+            cart.items.forEach(item => {
+                tableHTML += `
+                <tr>
+                    <td>${item.product_name}</td>
+                    <td>${item.product_price} تومان</td>
+                    <td>
+                        <input type="number" value="${item.quantity}" id="quantity-${item.product}" min="1" class="form-control" />
+                    </td>
+                    <td>
+                        <button onclick="updateCart(${item.product})" class="btn btn-warning">بروزرسانی</button>
+                        <button onclick="removeFromCart(${item.product})" class="btn btn-danger">حذف</button>
+                    </td>
+                </tr>
+            `;
+            });
+
+            tableHTML += `
+                </tbody>
+            </table>
+        `;
+            cartContent.innerHTML = tableHTML;
+        }
+
+        function updateCart(cartItemId) {
+            const quantity = document.getElementById(`quantity-${cartItemId}`).value;
+            fetch(`/cart/cart/update/${cartItemId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({quantity: quantity})
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return fetchCart();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function removeFromCart(productId) {
+            const url = '/cart/cart/remove/';
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({product_id: productId})
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    location.reload();
+                })
+                .catch((error) => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchCart);
+    </script>
+{% endblock %}

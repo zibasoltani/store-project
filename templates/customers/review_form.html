@@ -1,0 +1,58 @@
+{% extends 'customers/base.html' %}
+
+{% block title %}ثبت نظر {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>ثبت نظر</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="rating" class="form-label">امتیاز:</label>
+            <div class="rating">
+                <input type="radio" name="rating" id="star5" value="5" required>
+                <label for="star5" class="star">★</label>
+                <input type="radio" name="rating" id="star4" value="4">
+                <label for="star4" class="star">★</label>
+                <input type="radio" name="rating" id="star3" value="3">
+                <label for="star3" class="star">★</label>
+                <input type="radio" name="rating" id="star2" value="2">
+                <label for="star2" class="star">★</label>
+                <input type="radio" name="rating" id="star1" value="1">
+                <label for="star1" class="star">★</label>
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="comment" class="form-label">نظر:</label>
+            <textarea class="form-control" name="comment" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">تایید</button>
+    </form>
+</div>
+
+<style>
+.rating {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    color: #ddd;
+    font-size: 30px;
+    float: right;
+    cursor: pointer;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #f7d74e;
+}
+</style>
+{% endblock %}

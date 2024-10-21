@@ -1,0 +1,62 @@
+<!-- accounts/templates/accounts/register.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت نام</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="text-right">
+    <div class="container mt-5">
+        <h2>ثبت نام</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">نام کاربری</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">ایمیل</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">شماره تلفن</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+            </div>
+            <div class="form-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="shop_name">نام فروشگاه</label>
+                <input type="text" class="form-control" id="shop_name" name="shop_name" required>
+            </div>
+            <div class="form-group">
+                <label for="shop_address">آدرس فروشگاه</label>
+                <textarea class="form-control" id="shop_address" name="shop_address" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">ثبت نام</button>
+        </form>
+        <a href="{% url 'user_login' %}" class="btn btn-link btn-block mt-3">ورود به حساب کاربری</a>
+    </div>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'vendors/base.html' %}
+{% load custom_filters %}
+
+
+{% block title %} 
+    {% if form.instance.pk %}ویرایش دسته بندی{% else %}افزدون دسته{% endif %}  
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">
+        {% if form.instance.pk %}ویرایش دسته بندی{% else %}افزدون دسته{% endif %}
+    </h1>
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.product.id_for_label }}">{{ form.name.label }}</label>
+            {{ form.name|add_class:"form-control" }}
+            {% for error in form.name.errors %}
+                <div class="alert alert-danger mt-2">{{ error }}</div>
+            {% endfor %}
+        </div>
+        
+        <button class="btn btn-primary" type="submit">ذخیره</button>
+        <a class="btn btn-danger" href="{% url 'category_list' %}">لغو</a>
+    </form>
+</div>
+{% endblock %}

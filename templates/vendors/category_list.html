@@ -1,0 +1,28 @@
+{% extends 'vendors/base.html' %}
+
+{% block title %}داشبورد محصولات{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">دسته بندی ها</h1>
+    <a href="{% url 'category_create' %}" class="btn btn-primary mb-3">افزودن دسته بندی</a>
+    
+    {% if categories %}
+        <div class="list-group">
+            {% for category in categories %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>{{ category.name }}</span>
+                    <div>
+                        <a href="{% url 'category_update' category.pk %}" class="btn btn-warning btn-sm">ویرایش</a>
+                        <a href="{% url 'category_delete' category.pk %}" class="btn btn-danger btn-sm">حذف</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            هیچ دسته بندی وجود ندارد.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
