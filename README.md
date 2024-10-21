@@ -9,13 +9,13 @@
 +  order 
     
 ### setup 
-   #####  1. Clone the repository: git clone https://github.com/zibasoltani/store-project.git 
-   #####  2.  Create a virtual environment and activate it: pip install venv  and  .\.venv\Scripts\activate
-   #####  3.  Create a createsuperuser: python createsuperuser.py  
-   #####  4.  Install the required packages: pip install -r requirements.txt
-   #####  5.  Set up the database: python manage.py migrate
-   #####  6.  Run the application: python manage.py runserver
-   #####  7.  Management of orders by the user
+   #####      2.  Create a virtual environment and activate it: pip install venv  and  .\.venv\Scripts\activate
+   #####      1. Clone the repository: git clone https://github.com/zibasoltani/store-project.git 
+   #####      3.  Create a createsuperuser: python createsuperuser.py  
+   #####      4.  Install the required packages: pip install -r requirements.txt
+   #####      5.  Set up the database: python manage.py migrate
+   #####      6.  Run the application: python manage.py runserver
+   #####      7.  Management of orders by the user
 
 ### Testing
    ##### To run the test cases, run the following command: python manage.py test
