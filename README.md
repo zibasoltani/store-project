@@ -7,7 +7,8 @@
 +  Shopping cart with quantity management
 +  User address management
 +  order 
-    
+------------------
+
 ### setup 
    #####   2.  Create a virtual environment and activate it: pip install venv  and  .\.venv\Scripts\activate
    #####   1. Clone the repository: git clone https://github.com/zibasoltani/store-project.git 
@@ -16,6 +17,7 @@
    #####   5.  Set up the database: python manage.py migrate
    #####   6.  Run the application: python manage.py runserver
    #####   7.  Management of orders by the user
+------------------
 
 ### Testing
    ##### _To run the test cases, run the following command: python manage.py test
