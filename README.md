@@ -18,7 +18,7 @@
    #####   7.  Management of orders by the user
 
 ### Testing
-   ##### To run the test cases, run the following command: python manage.py test
+   ##### *To run the test cases, run the following command: python manage.py test
  
  
  
