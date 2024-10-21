@@ -3,10 +3,10 @@
 **Welcome to our online store project, built using Django and Python. This project allows users to browse through a product catalog and add products to a shopping cart. Finally, they can check out the cart and place an order.**
 ------------------
 ### Features
-#####  +  Product catalog with product details
-#####  +  Shopping cart with quantity management
-#####  +  User address management
-  +  
+  +  Product catalog with product details
+  +  Shopping cart with quantity management
+  +  User address management
+    
 #### setup ####
  ##### 1. Clone the repository: git clone https://github.com/zibasoltani/store-project.git 
  ##### 2.  Create a virtual environment and activate it: pip install venv and .\.venv\Scripts\activate
