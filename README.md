@@ -6,6 +6,7 @@
   +  Product catalog with product details
   +  Shopping cart with quantity management
   +  User address management
+  +  order 
     
 #### setup ####
  ##### 1. Clone the repository: git clone https://github.com/zibasoltani/store-project.git 
@@ -14,6 +15,9 @@
  ##### 4.  Install the required packages: pip install -r requirements.txt
  ##### 5.  Set up the database: python manage.py migrate
  ##### 6.  Run the application: python manage.py runserver
+ ##### 7.  Management of orders by the user
+ 
+ 
  
 
 
