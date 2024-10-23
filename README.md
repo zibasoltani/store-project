@@ -8,7 +8,7 @@
 +  Product catalog with product details
 +  Shopping cart with quantity management
 +  User address management
-+  order 
++  Management of orders by the user
 ------------------
 
 ### setup
@@ -18,7 +18,6 @@
    #####   4.  Install the required packages: pip install -r requirements.txt
    #####   5.  Set up the database: python manage.py migrate
    #####   6.  Run the application: python manage.py runserver
-   #####   7.  Management of orders by the user
 ------------------
 
 ### Testing
